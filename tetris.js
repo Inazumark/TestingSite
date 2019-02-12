@@ -234,18 +234,18 @@ function update(time = 0) {
 }
 
 function updateScore() {
-    document.getElementById('score').innerText = "Score: " + player.score;
+    document.getElementById('score').innerText = "score: " + player.score;
 }
 
 function updateLines() {
-	document.getElementById('lines').innerText = "Lines: " + player.lines;
+	document.getElementById('lines').innerText = "lines: " + player.lines;
 }
 
 function updateLevel() {
 	
 	player.level = Math.round(player.lines/10) + 1;
 	
-	document.getElementById('level').innerText = "Level: " + player.level;
+	document.getElementById('level').innerText = "level: " + player.level;
 }
 
 function updateAll() {
@@ -257,11 +257,16 @@ function updateAll() {
 function gamePause() { 
 	if (player.paused) {
 		if (player.needReset) {
+			// Score Save Prompt
+			savePrompt();
+			
+			// Reset
 			player.needReset = false;
 			arena.forEach(row => row.fill(0));
 			player.score = 0;
 			player.lines = 0;
 			updateAll();
+			document.getElementById('pausetext').innerText = "press SPACE to start";
 		}
 		else {
 			player.paused = false;
@@ -383,8 +388,41 @@ function holdPiece() {
 	holdDraw();
 }
 
+// Alt Tab Pause
 window.onblur = function() {
 	if (!player.paused) gamePause();
+}
+
+// Score board
+function savePrompt() {
+	if (confirm("Would you like to upload your score?")) {
+		var person = prompt("Your score is: " + player.score + "\nEnter your name below to save your score!");
+		if (person == null || person == "" || person == " ") {
+			return;
+		} 
+		else { 
+			// Sheets Upload Data
+			var d = new Date();
+			var day = d.getDate();
+			var month = d.getMonth() + 1;
+			var year = d.getFullYear();
+			var date = day + "/" + month + "/" + year;
+			
+			var name = "Kid", score = 1200;
+			
+			var data = {
+				name: name,
+				score: score
+			}
+			
+			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341", data, {}, function (result) {
+				console.log(result);
+			});			
+			// Confirmation
+			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
+		}
+	}
+	document.getElementById('pausetext').innerText = "Press Space to Start";
 }
 
 // After Initialization

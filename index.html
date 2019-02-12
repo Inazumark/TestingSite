@@ -14,7 +14,7 @@
         background: #202028;
         color: #fff;
         font-family: '8bit_wondernominal';
-        font-size: 25px;
+        font-size: 30px;
         text-align: center;
       }
       canvas {
@@ -27,7 +27,7 @@
 		flex-direction: column;
 		position: absolute;
 		flex-direction: column;
-		font-size: 20px;
+		font-size: 30px;
 	  }
 	  #texts {
 		text-align: left;
@@ -36,7 +36,7 @@
 	  }
 	  h1 {
 		position: absolute;
-		font-size: 25px;
+		font-size: 30px;
 		text-align: center;
 		width: 100%;
 		top: 50%;
@@ -54,6 +54,7 @@
 		width: 25vh;
 	  }
 	  </style>
+	  <script src="//script.sheetsu.com/"></script>
 </head>
 <body>
 	<div id="wrapper" style="margin: 0 auto; position: relative;">
@@ -63,19 +64,19 @@
 			<div id="level"></div>
 		</div>
 		<div id="help">
-			<div>Press Space to Pause</div>
-			<div>Press Shift to Hold a piece</div>
+			<div>press SPACE to pause</div>
+			<div>press SHIFT to hold a piece</div>
 		</div>
 		<div id="canvasWrapper" style="display: inline-flex; margin-left: -5%;">
 			<div id="mainCanvas" style="margin: 0; position: relative;">
-					<h1 id="pausetext">Press space to start</h1>
+					<h1 id="pausetext">press SPACE to start</h1>
 				<canvas id="tetris" width="240" height="400"></canvas>
 			</div>
 			<div id="subBoxWrapper" style="position: relative; float: right; padding-left: .2em; display: grid;">
 				<canvas id="next"></canvas>
-				<div style="font-size: 16px; margin-top: -35%; height: auto; width: 27vh;">next piece</div>
+				<div style="font-size: 23px; margin-top: -35%; height: auto; width: 27vh;">next piece</div>
 				<canvas id="hold"></canvas>
-				<div style="font-size: 16px; margin-top: -35%; height: auto; width: 27vh;">hold</div>
+				<div style="font-size: 23px; margin-top: -35%; height: auto; width: 27vh;">hold</div>
 			</div>
 		</div>
 	</div>
