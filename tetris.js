@@ -384,7 +384,7 @@ function holdPiece() {
 }
 
 window.onblur = function() {
-	if (player.paused) gamePause();
+	if (!player.paused) gamePause();
 }
 
 // After Initialization
