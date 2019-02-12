@@ -1,8 +1,22 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
-context.scale(20, 20);
+const nextCanvas = document.getElementById('next');
+const nextCtx = nextCanvas.getContext('2d');
 
+const holdCanvas = document.getElementById('hold');
+const holdCtx = holdCanvas.getContext('2d');
+
+context.scale(20, 20);
+nextCtx.scale(60, 30);
+holdCtx.scale(60, 30);
+
+// Variables
+var matrixConnector;
+var matrixHold;
+var matrixHoldSwitcher;
+
+// Tetris Code
 function arenaSweep() {
     let rowCount = 1;
     outer: for (let y = arena.length -1; y > 0; --y) {
@@ -92,12 +106,12 @@ function createPiece(type)
     }
 }
 
-function drawMatrix(matrix, offset) {
+function drawMatrix(matrix, offset, ctx) {
     matrix.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value !== 0) {
-                context.fillStyle = colors[value];
-                context.fillRect(x + offset.x,
+                ctx.fillStyle = colors[value];
+                ctx.fillRect(x + offset.x,
                                  y + offset.y,
                                  1, 1);
             }
@@ -109,8 +123,8 @@ function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    drawMatrix(arena, {x: 0, y: 0});
-    drawMatrix(player.matrix, player.pos);
+    drawMatrix(arena, {x: 0, y: 0}, context);
+    drawMatrix(player.matrix, player.pos, context);
 }
 
 function merge(arena, player) {
@@ -164,15 +178,22 @@ function playerMove(offset) {
 
 function playerReset() {
     const pieces = 'TJLOSZI';
-    player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+    player.matrix = matrixConnector;
+	if (!player.matrix) player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
                    (player.matrix[0].length / 2 | 0);
+
+   // Create new next block
+	nextReset();
+	
+	// Check gameover
     if (collide(arena, player)) {
-        arena.forEach(row => row.fill(0));
-        player.score = 0;
-		player.lines = 0;
-		updateAll();
+		document.getElementById('pausetext').innerText = "GAME OVER"; 
+		player.paused = true;
+		player.needReset = true
+		matrixHold = null;
+		holdDraw();
     }
 }
 
@@ -208,6 +229,7 @@ function update(time = 0) {
     lastTime = time;
 
     draw();
+	nextDraw();
     requestAnimationFrame(update);
 }
 
@@ -233,9 +255,18 @@ function updateAll() {
 }
 
 function gamePause() { 
-	if (player.paused) { 
-	player.paused = false;
-	document.getElementById('pausetext').innerText = " "; 
+	if (player.paused) {
+		if (player.needReset) {
+			player.needReset = false;
+			arena.forEach(row => row.fill(0));
+			player.score = 0;
+			player.lines = 0;
+			updateAll();
+		}
+		else {
+			player.paused = false;
+			document.getElementById('pausetext').innerText = " "; 
+		}
 	}
 	else if (!player.paused) {
 	player.paused = true;
@@ -264,6 +295,8 @@ document.addEventListener('keydown', event => {
 		//Rotate Left (A)
 		} else if (event.keyCode === 65) {
 			playerRotate(-1);
+		} else if (event.keyCode === 16) {
+			holdPiece();
 		}
 	}
 	//Pause (Space)
@@ -291,9 +324,75 @@ const player = {
     score: 0,
 	lines: 0,
 	level: 0,
-	paused: false,
+	paused: true,
+	needReset: false,
 };
 
+// Next Code
+const nextBox = createMatrix(6, 6);
+
+const next = {
+	pos: {x: 0, y:0},
+	matrix: null,
+};
+
+function nextDraw() {
+	nextCtx.fillStyle = '#000';
+    nextCtx.fillRect(0, 0, canvas.width, canvas.height);
+	
+	drawMatrix(nextBox, {x: 0, y: 0}, nextCtx);
+    drawMatrix(next.matrix, next.pos, nextCtx);
+}
+
+function nextReset() {
+	const pieces = 'TJLOSZI';
+    next.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+	matrixConnector = next.matrix;
+    next.pos.y = 1;
+    next.pos.x = 1;
+}
+
+// Hold Code
+const holdBox = createMatrix(6, 6);
+
+function holdDraw() {
+	holdCtx.fillStyle = '#000';
+    holdCtx.fillRect(0, 0, canvas.width, canvas.height);
+	
+	drawMatrix(holdBox, {x: 0, y: 0}, holdCtx);
+    if (matrixHold) drawMatrix(matrixHold, {x: 1, y: 1}, holdCtx);
+}
+
+function holdPiece() {
+	if (!matrixHold || !matrixHoldSwitcher) {
+		matrixHoldSwitcher = player.matrix;
+		matrixHold = matrixHoldSwitcher;
+		
+		playerReset();
+	} 
+	else {
+	matrixHoldSwitcher = player.matrix;
+	player.matrix = matrixHold;
+	matrixHold = matrixHoldSwitcher;
+	
+	player.pos.y = 0;
+    player.pos.x = (arena[0].length / 2 | 0) -
+                   (player.matrix[0].length / 2 | 0);
+
+	}
+	holdDraw();
+}
+
+window.onblur = function() {
+	if (player.paused) gamePause();
+}
+
+// After Initialization
 playerReset();
 updateAll();
 update();
+
+nextReset();
+nextDraw();
+
+holdDraw();
