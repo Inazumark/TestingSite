@@ -16,6 +16,7 @@ var matrixConnector;
 var matrixHold;
 var matrixHoldSwitcher;
 
+var combo = 0;
 // Tetris Code
 function arenaSweep() {
     let rowCount = 1;
@@ -30,10 +31,30 @@ function arenaSweep() {
         const row = arena.splice(y, 1)[0].fill(0);
         arena.unshift(row);
         ++y;
-
-        player.score += rowCount * 10 * player.level;
+		
+        player.score += (rowCount * 10 * player.level) + (rowCount * 10 * player.level) * combo;
         rowCount *= 2;
     }
+	switch (rowCount) {
+		case 2:
+		combo += 1;
+			break;
+		case 4:
+		combo += 2;
+		document.getElementById('pausetext').innerText = "DOUBLE";
+			break;
+		case 8:
+		combo += 3;
+		document.getElementById('pausetext').innerText = "TRIPLE";
+			break;
+		case 16:
+		combo += 4;
+		document.getElementById('pausetext').innerText = "TETRIS";
+			break;
+		default:
+		combo = 0;
+			break;
+	}
 }
 
 function collide(arena, player) {
@@ -177,6 +198,7 @@ function playerMove(offset) {
 }
 
 function playerReset() {
+	document.getElementById('pausetext').innerText = " "; 
     const pieces = 'TJLOSZI';
     player.matrix = matrixConnector;
 	if (!player.matrix) player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
@@ -237,6 +259,11 @@ function updateScore() {
     document.getElementById('score').innerText = "score: " + player.score;
 }
 
+function updateCombo() {
+	if (combo > 0) { document.getElementById('combo').innerText = "combo x" + combo; }
+	else { document.getElementById('combo').innerText = " "; }
+}
+
 function updateLines() {
 	document.getElementById('lines').innerText = "lines: " + player.lines;
 }
@@ -252,6 +279,7 @@ function updateAll() {
 	updateScore();
 	updateLines();
 	updateLevel();
+	updateCombo();
 }
 
 function gamePause() { 
@@ -306,8 +334,8 @@ document.addEventListener('keydown', event => {
 	}
 	//Pause (Space)
 	if (event.keyCode == 32) {
-			gamePause();
-		}
+		gamePause();
+	}
 });
 
 const colors = [
@@ -407,23 +435,46 @@ function savePrompt() {
 			var month = d.getMonth() + 1;
 			var year = d.getFullYear();
 			var date = day + "/" + month + "/" + year;
-			
-			var name = "Kid", score = 1200;
-			
-			var data = {
-				name: name,
-				score: score
-			}
-			
-			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341", data, {}, function (result) {
-				console.log(result);
-			});			
+	
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
 	}
 	document.getElementById('pausetext').innerText = "Press Space to Start";
 }
+
+/**
+// Color Changer
+function findPos(obj) {
+    var curleft = 0, curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return { x: curleft, y: curtop };
+    }
+    return undefined;
+}
+
+function rgbToHex(r, g, b) {
+    if (r > 255 || g > 255 || b > 255)
+        throw "Invalid color component";
+    return ((r << 16) | (g << 8) | b).toString(16);
+}
+
+$('#tetris').mousemove(function(e) {
+    var pos = findPos(this);
+    var x = e.pageX - pos.x;
+    var y = e.pageY - pos.y;
+    var coord = "x=" + x + ", y=" + y;
+    var c = this.getContext('2d');
+    var p = c.getImageData(x, y, 1, 1).data; 
+    var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+    $('#status').html(coord + "<br>" + hex);
+});
+
+**/
 
 // After Initialization
 playerReset();

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <title>Tetris</title>
     <style>
 	  @font-face {
@@ -19,7 +20,7 @@
       }
       canvas {
         border: solid .2em #fff;
-        height: 90vh;
+        height: 95vh;
       }
 	  #help {
 		right: 0%;
@@ -61,6 +62,8 @@
 			<div id="score"></div>
 			<div id="lines"></div>
 			<div id="level"></div>
+			<div id="combo"></div>
+			<div id="status"></div>
 		</div>
 		<div id="help">
 			<div>press SPACE to pause</div>
