@@ -449,7 +449,7 @@ function savePrompt() {
 				}]
 			};
 			
-			alert(data);
+			alert(data[0]);
 			
 			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {sheet: "Blad1"}, function (result) {
 				console.log(result);
@@ -484,4 +484,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.2";
+document.getElementById('status').innerText = "v0.0.3";
