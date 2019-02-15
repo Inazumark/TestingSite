@@ -457,7 +457,7 @@ function savePrompt() {
 }
 
 function saveData(data) {
-  Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {}).then( function (result) ) {
+  Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {}, function (result) {
     console.log(result);
   });
 }
