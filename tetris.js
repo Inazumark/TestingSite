@@ -440,18 +440,16 @@ function savePrompt() {
 			
 			// Compact Data
 			var data = {
-				rows: [{
 				name: person,
 				score: player.score,
 				lines: player.lines,
 				level: player.level,
 				date: date
-				}]
 			};
 			
 			alert(data[0]);
 			
-			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {sheet: "Blad1"}, function (result) {
+			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {sheet: "Blad1"}).then(function(result) {
 				console.log(result);
 				alert("succes");
 			});
@@ -484,4 +482,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.3";
+document.getElementById('status').innerText = "v0.0.4";
