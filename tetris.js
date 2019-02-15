@@ -437,12 +437,29 @@ function savePrompt() {
 			var month = d.getMonth() + 1;
 			var year = d.getFullYear();
 			var date = day + "/" + month + "/" + year;
-	
+			
+			// Compact Data
+			var data = {
+				name: person,
+				score: player.score,
+				lines: player.lines,
+				level: player.level,
+				date: date
+			};
+			
+			saveData(data);
+			
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
 	}
 	document.getElementById('pausetext').innerText = "press SPACE to start";
+}
+
+function saveData(data) {
+  Sheetsu.write("https://sheetsu.com/apis/v1.0dw/020b2c0f/", data, {}, function (result) {
+    console.log(result);
+  });
 }
 
 function successFunc(data) {
