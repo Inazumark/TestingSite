@@ -447,19 +447,16 @@ function savePrompt() {
 				date: date
 			};
 			
-			saveData(data);
+			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {}, function (result) {
+				console.log(result);
+				alert("succes");
+			});
 			
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
 	}
 	document.getElementById('pausetext').innerText = "press SPACE to start";
-}
-
-function saveData(data) {
-  Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {}, function (result) {
-    console.log(result);
-  });
 }
 
 function successFunc(data) {
