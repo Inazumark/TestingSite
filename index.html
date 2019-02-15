@@ -83,6 +83,21 @@
 			</div>
 		</div>
 	</div>
+	<script>
+    function successFunc(data) {
+      console.log(data);
+    }
+
+    // Adds single row to spreadsheet
+    var data = {
+      name: "John",
+      score: 12030,
+      lines: 200,
+      level: 20,
+      date: "20/12/2018"
+    };
+    Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341", data, {}, successFunc);
+  </script>
     <script src="tetris.js"></script>
 </body>
 </html>

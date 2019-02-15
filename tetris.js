@@ -446,14 +446,14 @@ function savePrompt() {
 				level: player.level,
 				date: date
 			};
-			
+			/**
 			alert(data[0]);
 			
 			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {sheet: "Blad1"}).then(function(result) {
 				console.log(result);
 				alert("succes");
 			});
-			
+			**/
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
@@ -482,4 +482,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.4";
+document.getElementById('status').innerText = "v0.0.5";
