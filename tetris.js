@@ -440,11 +440,13 @@ function savePrompt() {
 			
 			// Compact Data
 			var data = {
+				rows: [{
 				name: person,
 				score: player.score,
 				lines: player.lines,
 				level: player.level,
 				date: date
+				}]
 			};
 			
 			alert(data);
@@ -482,4 +484,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.1";
+document.getElementById('status').innerText = "v0.0.2";
