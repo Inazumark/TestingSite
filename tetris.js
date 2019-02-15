@@ -239,7 +239,7 @@ let dropInterval = 1000;
 
 let lastTime = 0;
 function update(time = 0) {
-    const deltaTime = time - lastTime + 2^player.level;
+    const deltaTime = time - lastTime + 7*player.level;
 
 	if (!player.paused) {
 		dropCounter += deltaTime;
