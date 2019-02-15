@@ -447,6 +447,8 @@ function savePrompt() {
 				date: date
 			};
 			
+			alert(data);
+			
 			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {}, function (result) {
 				console.log(result);
 				alert("succes");
