@@ -84,22 +84,5 @@
 		</div>
 	</div>
     <script src="tetris.js"></script>
-	<script>
-    // In this example data is saved to the window.users variable
-    // So it's available for use anywhere in the app/page
-    function successFunc(data) {
-      console.log(data);
-    }
-
-    function errorFunc(e) {
-      console.log(e);
-    }
-
-    // Use Sheetsu.read to get data from a spreadsheet.
-    // Pass callback function, which takes one argument - data
-    // It's triggered after getting data from API
-    Sheetsu.read("https://sheetsu.com/apis/v1.0su/b48a17680341/", {}).then(successFunc, errorFunc);
-
-  </script>
 </body>
 </html>
