@@ -239,7 +239,7 @@ let dropInterval = 1000;
 
 let lastTime = 0;
 function update(time = 0) {
-    const deltaTime = time - lastTime + player.level*5;
+    const deltaTime = time - lastTime + 2^player.level;
 
 	if (!player.paused) {
 		dropCounter += deltaTime;
@@ -330,6 +330,8 @@ document.addEventListener('keydown', event => {
 			playerRotate(-1);
 		} else if (event.keyCode === 16) {
 			holdPiece();
+		} else if (event.keyCode === 8) {
+			player.lines += 10;
 		}
 	}
 	//Pause (Space)
@@ -440,7 +442,7 @@ function savePrompt() {
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
 	}
-	document.getElementById('pausetext').innerText = "Press Space to Start";
+	document.getElementById('pausetext').innerText = "press SPACE to start";
 }
 
 /**
@@ -473,7 +475,6 @@ $('#tetris').mousemove(function(e) {
     var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
     $('#status').html(coord + "<br>" + hex);
 });
-
 **/
 
 // After Initialization
@@ -485,3 +486,5 @@ nextReset();
 nextDraw();
 
 holdDraw();
+
+document.getElementById('pausetext').innerText = "press SPACE to start";
