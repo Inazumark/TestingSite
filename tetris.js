@@ -458,13 +458,13 @@ function savePrompt() {
 			var scoreID = "entry.506352445"
 			
 			var linesSub = player.lines;
-			var scoreID = "entry.1500262431"
+			var linesID = "entry.1500262431"
 			
 			var levelSub = player.level;
-			var scoreID = "entry.1020663420"
+			var levelID = "entry.1020663420"
 			
 			var dateSub = date;
-			var scoreID = "entry.1570847717"
+			var dateID = "entry.1570847717"
 			
 			var submitURL = (baseUrl + nameID + "=" + nameSub 
 			+ "&" + scoreID + "=" + scoreSub 
@@ -496,4 +496,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.11";
+document.getElementById('status').innerText = "v0.0.12";
