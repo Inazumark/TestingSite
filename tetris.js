@@ -459,7 +459,9 @@ function savePrompt() {
 			
 			var submitURL = (baseUrl + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
 			console.log(submitURL);
-			$(this)[0].action=submitURL;
+			
+			var oReq = new XMLHttpRequest();
+			oReq.open("get", submitURL, true);
 			
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
@@ -479,4 +481,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.8";
+document.getElementById('status').innerText = "v0.0.9";
