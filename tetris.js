@@ -424,6 +424,11 @@ window.onblur = function() {
 }
 
 // Score board
+function dialResponse() {
+ console.log(this.responseText);//should be return value of 1
+}
+
+
 function savePrompt() {
 	if (confirm("Would you like to upload your score?")) {
 		var person = prompt("Your score is: " + player.score + "\nEnter your name below to save your score!");
@@ -461,7 +466,9 @@ function savePrompt() {
 			console.log(submitURL);
 			
 			var oReq = new XMLHttpRequest();
+			oReq.onload = dialResponse;
 			oReq.open("get", submitURL, true);
+			oReq.send();
 			
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
@@ -481,4 +488,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.9";
+document.getElementById('status').innerText = "v0.0.10";
