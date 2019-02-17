@@ -424,11 +424,6 @@ window.onblur = function() {
 }
 
 // Score board
-function dialResponse() {
- console.log(this.responseText);//should be return value of 1
-}
-
-
 function savePrompt() {
 	if (confirm("Would you like to upload your score?")) {
 		var person = prompt("Your score is: " + player.score + "\nEnter your name below to save your score!");
@@ -462,11 +457,24 @@ function savePrompt() {
 			var scoreSub = player.score;
 			var scoreID = "entry.506352445"
 			
-			var submitURL = (baseUrl + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
+			var linesSub = player.lines;
+			var scoreID = "entry.1500262431"
+			
+			var levelSub = player.level;
+			var scoreID = "entry.1020663420"
+			
+			var dateSub = date;
+			var scoreID = "entry.1570847717"
+			
+			var submitURL = (baseUrl + nameID + "=" + nameSub 
+			+ "&" + scoreID + "=" + scoreSub 
+			+ "&" + linesID + "=" + linesSub 
+			+ "&" + levelID + "=" + levelSub 
+			+ "&" + dateID + "=" + dateSub 
+			+ submitRef);
 			console.log(submitURL);
 			
 			var oReq = new XMLHttpRequest();
-			oReq.onload = dialResponse;
 			oReq.open("get", submitURL, true);
 			oReq.send();
 			
@@ -488,4 +496,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.10";
+document.getElementById('status').innerText = "v0.0.11";
