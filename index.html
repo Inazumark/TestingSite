@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script-->
-<script src="//script.sheetsu.com/"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <title>Tetris</title>
     <style>
 	  @font-face {
@@ -83,21 +82,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-    function successFunc(data) {
-      console.log(data);
-    }
-
-    // Adds single row to spreadsheet
-    var data = {
-      name: "John",
-      score: 12030,
-      lines: 200,
-      level: 20,
-      date: "20/12/2018"
-    };
-    Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341", data, {}, successFunc);
-  </script>
     <script src="tetris.js"></script>
 </body>
 </html>

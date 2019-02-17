@@ -446,30 +446,27 @@ function savePrompt() {
 				level: player.level,
 				date: date
 			};
-			/**
-			alert(data[0]);
 			
-			Sheetsu.write("https://sheetsu.com/apis/v1.0su/b48a17680341/", data, {sheet: "Blad1"}).then(function(result) {
-				console.log(result);
-				alert("succes");
-			});
-			**/
+			// Send Data
+			var baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfRZKMpq54QsuCIfmTzfEiy_1uHp-0yr1sBTalATD9SqD1z7w/formResponse?";
+			var submitRef = "&submit=Submit";
+			
+			var nameSub = encodeURIComponent($(person));
+			var nameID = "entry_1075406274";
+			
+			var scoreSub = encodeURIComponent($(player.score));
+			var scoreID = "entry_506352445"
+			
+			var submitURL = (baseURL + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
+			console.log(submitURL);
+			$(this)[0].action=submitURL;
+			
 			// Confirmation
 			alert("Thank you, " + person + "\nYour score has been added to the leaderboard!");
 		}
 	}
 	document.getElementById('pausetext').innerText = "press SPACE to start";
 }
-
-function successFunc(data) {
-  console.log(data);
-}
-
-function errorFunc(e) {
-  console.log(e);
-}
-
-Sheetsu.read("https://sheetsu.com/apis/v1.0su/b48a17680341/", {}).then(successFunc, errorFunc);
 
 // After Initialization
 playerReset();
@@ -482,4 +479,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.5";
+document.getElementById('status').innerText = "v0.0.6";
