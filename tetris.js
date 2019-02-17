@@ -448,14 +448,14 @@ function savePrompt() {
 			};
 			
 			// Send Data
-			var baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfRZKMpq54QsuCIfmTzfEiy_1uHp-0yr1sBTalATD9SqD1z7w/formResponse?";
+			var baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfRZKMpq54QsuCIfmTzfEiy_1uHp-0yr1sBTalATD9SqD1z7w/formResponse?usp=pp_url&";
 			var submitRef = "&submit=Submit";
 			
-			var nameSub = encodeURIComponent($(person));
-			var nameID = "entry_1075406274";
+			var nameSub = person;
+			var nameID = "entry.1075406274";
 			
-			var scoreSub = encodeURIComponent($(player.score));
-			var scoreID = "entry_506352445"
+			var scoreSub = player.score;
+			var scoreID = "entry.506352445"
 			
 			var submitURL = (baseUrl + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
 			console.log(submitURL);
@@ -479,4 +479,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.7";
+document.getElementById('status').innerText = "v0.0.8";
