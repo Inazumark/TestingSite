@@ -457,7 +457,7 @@ function savePrompt() {
 			var scoreSub = encodeURIComponent($(player.score));
 			var scoreID = "entry_506352445"
 			
-			var submitURL = (baseURL + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
+			var submitURL = (baseUrl + nameID + "=" + nameSub + "&" + scoreID + "=" + scoreSub + submitRef);
 			console.log(submitURL);
 			$(this)[0].action=submitURL;
 			
@@ -479,4 +479,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.6";
+document.getElementById('status').innerText = "v0.0.7";
