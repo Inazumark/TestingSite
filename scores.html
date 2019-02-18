@@ -50,9 +50,9 @@
   
   // My Code
   function testData() {
-  var myData = json.feed.entry;
+  var myData = spData;
   var rowData = [];
-  for(var r=0; r<spData.length; r++) {
+  for(var r=0; r<myData.length; r++) {
           var cell = myData[r]["gs$cell"];
 		  var val = cell["$t"];
 		  if (cell.col == 1) {
@@ -63,10 +63,10 @@
   document.getElementById('score').innerText = "Test: " + val;
   }
   
-  testData();
  // Create Table
   $(document).ready(function(){
       readData($("#data"));
+	  testData();
   });
   </script>   
 <script src="https://spreadsheets.google.com/feeds/cells/14lDD55URB5gnNYIR4rLwvnllmiXHNyf3o24TNds3d-k/1/public/values?alt=json-in-script&callback=doData"></script>
@@ -86,7 +86,7 @@
 </style>
 </head>
 <body>
-<h1>Parse Google Spreadsheet with JavaScript v2</h1> 
+<h1>Parse Google Spreadsheet with JavaScript v3</h1> 
 <div id="data"/>
 <div id="score"></div>
 </body>
