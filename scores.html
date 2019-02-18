@@ -50,17 +50,14 @@
   
   // My Code
   function testData() {
-  var myData = spData;
-  var rowData = [];
-  for(var r=0; r<myData.length; r++) {
-          var cell = myData[r]["gs$cell"];
-		  var val = cell["$t"];
-		  if (cell.col == 1) {
-              rowData = [];
-          }
-          rowData.push(val);
-	}
-  document.getElementById('score').innerText = "Test: " + val;
+	var myData = spData;
+	var rowData = [];
+	
+	var cell = myData[1]["gs$cell"];
+	var val = cell["$t"];
+
+	rowData.push(val);
+	document.getElementById('score').innerText = "Test: " + val;
   }
   
  // Create Table
@@ -86,7 +83,7 @@
 </style>
 </head>
 <body>
-<h1>Parse Google Spreadsheet with JavaScript v3</h1> 
+<h1>Parse Google Spreadsheet with JavaScript v4</h1> 
 <div id="data"/>
 <div id="score"></div>
 </body>
