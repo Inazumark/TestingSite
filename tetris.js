@@ -135,6 +135,11 @@ function drawMatrix(matrix, offset, ctx) {
                 ctx.fillRect(x + offset.x,
                                  y + offset.y,
                                  1, 1);
+				ctx.lineWidth = 0.1;
+				ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+				ctx.strokeRect(x + offset.x,
+                                 y + offset.y,
+                                 1, 1);
             }
         });
     });
@@ -424,6 +429,9 @@ window.onblur = function() {
 }
 
 // Score board
+//https://sheets.googleapis.com/v4/spreadsheets/14lDD55URB5gnNYIR4rLwvnllmiXHNyf3o24TNds3d-k/values/A1:A2?key=AIzaSyCKBhaaUHFR9iZlO7coOeTg-O9QcE612p8
+
+// Save Scores
 function savePrompt() {
 	if (confirm("Would you like to upload your score?")) {
 		var person = prompt("Your score is: " + player.score + "\nEnter your name below to save your score!");
@@ -496,4 +504,4 @@ nextDraw();
 holdDraw();
 
 document.getElementById('pausetext').innerText = "press SPACE to start";
-document.getElementById('status').innerText = "v0.0.12";
+document.getElementById('status').innerText = "v1.0.0";
