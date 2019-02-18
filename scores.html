@@ -47,6 +47,22 @@
       }
       drawRow(table, rowData);
   }
+  
+  // My Code
+  function testData() {
+  for(var r=0; r<spData.length; r++) {
+          var cell = spData[r]["gs$cell"];
+		  var val = cell["$t"];
+		  if (cell.col == 1) {
+              rowData = [];
+          }
+          rowData.push(val);
+	}
+  document.getElementById('score').innerText = "Test: " + val;
+  }
+  
+  testData();
+ // Create Table
   $(document).ready(function(){
       readData($("#data"));
   });
@@ -68,7 +84,8 @@
 </style>
 </head>
 <body>
-<h1>Parse Google Spreadsheet with JavaScript</h1> 
+<h1>Parse Google Spreadsheet with JavaScript v1</h1> 
 <div id="data"/>
+<div id="score"></div>
 </body>
 </html> 
