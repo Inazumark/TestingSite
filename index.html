@@ -1,87 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <title>Tetris</title>
-    <style>
-	  @font-face {
-		font-family: '8bit_wondernominal';
-		src: url('fonts/8_bit_wonder-webfont.woff2') format('woff2'),
-			url('fonts/8_bit_wonder-webfont.woff') format('woff');
-		font-weight: normal;
-		font-style: normal;
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+  
+  function drawCell(tr, val) {
+      var td = $("<td/>");
+      tr.append(td);
+      td.append(val);
+      return td;
+  }
+  function drawRow(table, rowData) {
+	  if (rowData == null) return null;
+	  if (rowData.length == 0) return null;
+	  var tr = $("<tr/>");
+	  table.append(tr);
+	  for(var c=0; c<rowData.length; c++) {
+		  drawCell(tr, rowData[c]);
 	  }
-      body {
-        background: #202028;
-        color: #fff;
-        font-family: '8bit_wondernominal';
-        font-size: 30px;
-        text-align: center;
+	  return tr;
+  }
+  
+  function drawTable(parent) {
+	  var table = $("<table/>");
+	  parent.append(table);
+	  return table;
+  }
+  
+  function readData(parent) {
+      var data = spData;
+      var table = drawTable(parent);
+      var rowData = [];
+      
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          if (cell.col == 1) {
+              drawRow(table, rowData);
+              rowData = [];
+          }
+          rowData.push(val);
       }
-      canvas {
-        border: solid .2em #fff;
-        height: 95vh;
-      }
-	  #help {
-		right: 0%;
-		text-align: right;
-		flex-direction: column;
-		position: absolute;
-		flex-direction: column;
-		font-size: 30px;
-	  }
-	  #texts {
-		text-align: left;
-		flex-direction: column;
-		position: absolute;		
-	  }
-	  h1 {
-		position: absolute;
-		font-size: 30px;
-		text-align: center;
-		width: 100%;
-		top: 50%;
-	  }
-	  #next {
-	    border: solid .2em #fff;
-		position: relative;
-		height: 25vh;
-		width: 25vh;
-	  }
-	  #hold {
-	    border: solid .2em #fff;
-		position: relative;
-		height: 25vh;
-		width: 25vh;
-	  }
-	  </style>
+      drawRow(table, rowData);
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+  </script>   
+<script src="https://spreadsheets.google.com/feeds/cells/14lDD55URB5gnNYIR4rLwvnllmiXHNyf3o24TNds3d-k/1/public/values?alt=json-in-script&callback=doData"></script>
+<style type="text/css">
+  table {border-collapse: collapse; width: 100%;}
+  th, td {border: thin solid black; padding: 3px;}
+  tr.head th, tr.head td {background-color: #EDEDED; border-bottom: 4px double black;}
+  span.linetitle {font-weight: bold;}
+  div.lineclass {font-style: italic;}
+  .title, .result {width: 80%;}
+  .notes {width: 15%;}
+  h1 {text-align: center;}
+  body {margin: 12px; font-size: 12px;}
+</style>
+<style type="text/css" media="print">
+  form {display: none;}
+</style>
 </head>
 <body>
-	<div id="wrapper" style="margin: 0 auto; position: relative;">
-		<div id="texts">
-			<div id="score"></div>
-			<div id="lines"></div>
-			<div id="level"></div>
-			<div id="combo"></div>
-			<div id="status"></div>
-		</div>
-		<div id="help">
-			<div>press SPACE to pause</div>
-			<div>press SHIFT to hold a piece</div>
-		</div>
-		<div id="canvasWrapper" style="display: inline-flex; margin-left: -5%;">
-			<div id="mainCanvas" style="margin: 0; position: relative;">
-					<h1 id="pausetext">press SPACE to start</h1>
-				<canvas id="tetris" width="240" height="400"></canvas>
-			</div>
-			<div id="subBoxWrapper" style="position: relative; float: right; padding-left: .2em; display: grid;">
-				<canvas id="next"></canvas>
-				<div style="font-size: 23px; margin-top: -35%; height: auto; width: 27vh;">next piece</div>
-				<canvas id="hold"></canvas>
-				<div style="font-size: 23px; margin-top: -35%; height: auto; width: 27vh;">hold</div>
-			</div>
-		</div>
-	</div>
-    <script src="tetris.js"></script>
+<h1>Parse Google Spreadsheet with JavaScript</h1> 
+<div id="data"/>
 </body>
-</html>
+</html> 
